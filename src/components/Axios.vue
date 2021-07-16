@@ -20,10 +20,15 @@ export default {
             productList: []
         }
     },
+    methods: {
+        getProductList: async function() {
+            await Axios.get('public/data.json').then(res => {
+                this.productList = res.data
+            })  
+        }
+    },
     mounted() {
-        Axios.get('public/data.json').then(res => {
-            this.productList = res.data
-        })
+        this.getProductList()
     }
 }
 </script>
