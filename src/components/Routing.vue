@@ -7,6 +7,7 @@
         <router-link to="/ref">ref</router-link>
         <router-link to="/vuex">vuex</router-link>
         <router-link to="/watch">watch</router-link>
+        <router-link to="/computed">computed</router-link>
     </div>
 </template>
 
