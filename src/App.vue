@@ -8,7 +8,6 @@
             <router-link to="/">home</router-link>
 		    <button class="go-front" @click="$router.go(1)">Next</button>
         </div>
-        
     </div>
 </template>
 
