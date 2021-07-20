@@ -8,6 +8,9 @@
         <td>{{ product.price }}</td>
       </tr>
     </table>
+    <div v-model="exhibitionList">
+      <img  v-for="item in exhibitionList" :src="item.image_url">
+    </div>
   </div>
 </template>
 
@@ -18,7 +21,8 @@ export default {
   name: 'axios-component',
   data() {
     return {
-      productList: []
+      productList: [],
+      exhibitionList: [],
     }
   },
   methods: {
@@ -27,20 +31,31 @@ export default {
         this.productList = res.data
       })
     },
-    getExhibition: async function () {
-      var config = {
+    getApiConfig: function() {
+      return {
         headers: {
           Authorization: "test"
         }
       }
+    },
+    getExhibitionIng: async function () {
+      var config = this.getApiConfig()
       await Axios.get("https://sapic.brandi.me/v1/web/events?&is-progress=true&limit=30", config).then(res => {
-        console.log(res)
+        this.exhibitionList = res.data.data;
+        // console.log(res)
       })
-    }
+    },
+    getExhibitionDone: async function () {
+      var config = this.getApiConfig()
+      await Axios.get("https://sapic.brandi.me/v1/web/events?&is-progress=false&limit=30", config).then(res => {
+        this.exhibitionList = res.data.data;
+        // console.log(res)
+      })
+    },
   },
   mounted() {
     this.getProductList()
-    this.getExhibition()
+    this.getExhibitionDone()
   }
 }
 </script>
