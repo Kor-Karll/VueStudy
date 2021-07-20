@@ -8,8 +8,9 @@
         <td>{{ product.price }}</td>
       </tr>
     </table>
-    <div v-model="exhibitionList">
-      <img  v-for="item in exhibitionList" :src="item.image_url">
+    <div v-model="exhibitionList" v-for="(item, i) in exhibitionList">
+      <img v-on:click="toggleLike(i)" style="width:50%;height: 100px" :src="item.image_url">
+      <img v-if="item.like" style="width:5%;" src="https://www.flaticon.com/svg/static/icons/svg/929/929417.svg">
     </div>
   </div>
 </template>
@@ -31,7 +32,7 @@ export default {
         this.productList = res.data
       })
     },
-    getApiConfig: function() {
+    getApiConfig: function () {
       return {
         headers: {
           Authorization: "test"
@@ -41,16 +42,20 @@ export default {
     getExhibitionIng: async function () {
       var config = this.getApiConfig()
       await Axios.get("https://sapic.brandi.me/v1/web/events?&is-progress=true&limit=30", config).then(res => {
-        this.exhibitionList = res.data.data;
+        this.exhibitionList = res.data.data.map(v => ({...v, like: false}))
         // console.log(res)
       })
     },
     getExhibitionDone: async function () {
       var config = this.getApiConfig()
       await Axios.get("https://sapic.brandi.me/v1/web/events?&is-progress=false&limit=30", config).then(res => {
-        this.exhibitionList = res.data.data;
+        this.exhibitionList = res.data.data.map(v => ({...v, like: false}))
         // console.log(res)
       })
+    },
+    toggleLike: function (i) {
+      this.exhibitionList[i].like = !!!this.exhibitionList[i].like
+      console.log(this.exhibitionList)
     },
   },
   mounted() {
