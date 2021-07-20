@@ -50,4 +50,8 @@ module.exports = {
         }),
         new VueLoaderPlugin()
     ],
+    devServer: {
+        disableHostCheck: true,
+        port: 80,
+    }
 };
