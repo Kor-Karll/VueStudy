@@ -10,6 +10,7 @@ import Ref from '~/components/Ref.vue'
 import Vuex from '~/components/Vuex.vue'
 import Watch from '~/components/Watch.vue'
 import Computed from '~/components/Computed.vue'
+import End from '~/components/End.vue'
 Vue.use(VueRouter)
 
 const NotFound = { template: "<div>Not Found</div>" }
@@ -27,6 +28,7 @@ const router = new VueRouter({
       { path: "/vuex", component: Vuex },
       { path: "/watch", component: Watch },
       { path: "/computed", component: Computed },
+      { path: "/end", component: End },
     ],
   })
   
