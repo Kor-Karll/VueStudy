@@ -18,6 +18,9 @@ export default {
                 this.checkInput(this.$refs.age) &&
                 this.checkInput(this.$refs.job)                 
             ) {
+              this.$store.state.ref.name = this.$refs.name.value
+              this.$store.state.ref.age = this.$refs.age.value
+              this.$store.state.ref.job = this.$refs.job.value
                 alert("모두 입력되었습니다.")
             }
         },
