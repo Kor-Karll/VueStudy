@@ -11,6 +11,16 @@ export const store = new Vuex.Store({
             job: "",
         },
         count: 0,
+    },
+    mutations: {
+        setRefData: function(state, payload) {
+            state.ref = payload
+        },
+    },
+    actions: {
+        setRefData: function(context, payload) {
+            context.commit('setRefData', payload)
+        }
     }
 });
 
