@@ -1,80 +1,53 @@
 <template>
   <div>
-    watch
-    <input type="text" v-on:keyup="onChange" v-model="search" @focus="optionListDrop = true">
-    <div id="optionList" v-if="optionListDrop">
-      <div v-for="platform in searchOptionList" @click="selectOption(platform)">{{ platform.name }}</div>
-    </div>
-    <div>
-      <img style="width: 50%" :src="selectedPlatform.imgSrc">
-    </div>
-    <div>
-      <span>{{ selectedPlatform.titleData }}</span>
-    </div>
-    <div>
-      <span>{{ selectedPlatform.text }}</span>
+    nexttick
+    <br>
+    height: {{ boxHeight }}, width: {{ boxWidth }}
+    <input type="button" value="텍스트 추가하기" v-on:click="createRandomTextBox">
+    <input type="button" value="상자크기 자겨오기" v-on:click="getBoxSize">
+    <div id="randomBox" :style="{width: boxWidth,height: boxHeight}">
+      <div v-for="(box,i) in boxList">
+        random str = {{ box.text }}<input type="button" value="제거" @click="deleteBox(i)">{{ i }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'watch-component',
+  name: 'nexttick-component',
   data: function () {
     return {
-      optionList: [
-        {
-          name: '브랜디',
-          imgSrc: "https://platum.kr/wp-content/uploads/2019/11/image.png",
-          titleData: "MZ세대를 겨냥한 여성 쇼핑 플랫폼 입니다. ",
-          text: "www.brandi.co.kr"
-        },
-        {
-          name: '하이버',
-          imgSrc: "https://www.venturesquare.net/wp-content/uploads/2019/03/hiver.jpg",
-          titleData: "하이버 - 예쁜 남자옷 모음",
-          text: "www.hiver.co.kr"
-        },
-        {
-          name: '헬피',
-          imgSrc: "https://platum.kr/wp-content/uploads/2018/09/helpi.jpg",
-          titleData: "온라인 의류 판매자를 위한 쉬운 쇼핑몰 운영 서비스",
-          text: "www.helpi.co.kr"
-        }
-      ],
-      selectedPlatform: {
-        name: '브랜디',
-        imgSrc: "https://platum.kr/wp-content/uploads/2019/11/image.png",
-        titleData: "MZ세대를 겨냥한 여성 쇼핑 플랫폼 입니다. ",
-        text: "www.brandi.co.kr"
-      },
-      searchOptionList: [],
-      search: "",
+      boxList: [],
+      boxHeight: 10,
+      boxWidth: 10,
       optionListDrop: false,
     }
   },
   methods: {
-    onChange(e) {
-      if (this.search.length == 0) {
-        this.searchOptionList = this.optionList
-      } else {
-        this.searchOptionList = []
-        this.optionList.forEach(
-            (platform, i) => {
-              if (platform.name.indexOf(this.search) != -1) {
-                this.searchOptionList.push(this.optionList[i])
-              }
-            }
-        )
+    createRandomTextBox() {
+      var randomLength = Math.random() * 15
+      var text = Math.random().toString(36).substr(2, randomLength)
+      this.boxList.push({text: text})
+      this.getBoxSize()
+    },
+    getBoxSize() {
+      this.$nextTick(function () {
+        this.boxHeight = parseInt($('#randomBox').css('height'), 10)
+        this.boxWidth = parseInt($('#randomBox').css('width'), 10)
+      })
+    },
+    deleteBox(i) {
+      if (this.boxList.length <= 1) {
+        this.boxList = []
+        return
       }
-    },
-    selectOption(platform) {
-      this.selectedPlatform = platform
-      this.optionListDrop = false
-    },
+      this.$delete(this.boxList, i)
+      this.getBoxSize()
+    }
   },
   mounted() {
-    this.searchOptionList = this.optionList
+
   },
 }
 </script>

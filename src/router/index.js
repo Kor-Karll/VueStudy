@@ -9,6 +9,7 @@ import Mixin from '~/components/Mixin.vue'
 import Ref from '~/components/Ref.vue'
 import Vuex from '~/components/Vuex.vue'
 import Watch from '~/components/Watch.vue'
+import Watch2 from '~/components/Watch2.vue'
 import NextTick from '~/components/NextTick.vue'
 import Computed from '~/components/Computed.vue'
 import End from '~/components/End.vue'
@@ -28,6 +29,7 @@ const router = new VueRouter({
       { path: "/ref", component: Ref },
       { path: "/vuex", component: Vuex },
       { path: "/watch", component: Watch },
+      { path: "/watch2", component: Watch2 },
       { path: "/nexttick", component: NextTick },
       { path: "/computed", component: Computed },
       { path: "/end", component: End },
